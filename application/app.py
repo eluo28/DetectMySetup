@@ -89,6 +89,7 @@ def main():
              caption="Example of model being run.", 
              use_column_width=True)
     st.write("## Upload your own image")
+    st.set_option('deprecation.showfileUploaderEncoding', False)
     uploaded_image = st.file_uploader("Choose a png or jpg image", 
                                       type=["jpg", "png", "jpeg"])
 
