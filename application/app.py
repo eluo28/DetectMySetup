@@ -84,8 +84,8 @@ def main():
     st.title("Detect My Setup")
     st.write("This application uses an object detection model to outline and classify common amenities in a computer setup.")
     st.write("## How does it work?")
-    st.write("Add an image of a room and a machine learning learning model will look at it and find the amenities like the example below:")
-    st.image(Image.open("images/set.jpg"), 
+    st.write("Add an image of a setup and the machine learning learning model will look at it and detect items like the example below:")
+    st.image(Image.open("images/set.png"), 
              caption="Example of model being run.", 
              use_column_width=True)
     st.write("## Upload your own image")
