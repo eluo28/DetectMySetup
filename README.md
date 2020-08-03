@@ -1,4 +1,4 @@
-"# DetectMySetup" 
+"DetectMySetup" 
 
 Object detection machine learning model deployed on web application
 Trained Detectron2 model on custom dataset from Open Images through Google Colab
