@@ -17,8 +17,8 @@ subset = ["Computer keyboard","Computer monitor","Computer mouse","Lamp","Laptop
 subset.sort()
 
 # Set up default variables
-CONFIG_FILE = "ignore/config.yaml"
-MODEL_FILE = "ignore/model_final.pth"
+CONFIG_FILE = "model/config.yaml"
+MODEL_FILE = "model/model_final.pth"
 
 # TODO Way to load model with @st.cache so it doesn't take a long time each time
 @st.cache(allow_output_mutation=True)
@@ -82,14 +82,13 @@ def make_inference(image, model_config, model_weights, threshold=0.5, n=5, save=
 
 def main():
     st.title("Detect My Setup")
-    st.write("This application uses an object detection model to outline and classify common amenities in a computer setup.")
+    st.write("This application uses a machine learning learning model to outline and classify common objects in a computer setup.")
     st.write("## How does it work?")
-    st.write("Add an image of a setup and the machine learning learning model will look at it and detect items like the example below:")
+    st.write("Add an image of a setup and the model will detect items like the example below:")
     st.image(Image.open("images/set.png"), 
              caption="Example of model being run.", 
              use_column_width=True)
     st.write("## Upload your own image")
-    st.set_option('deprecation.showfileUploaderEncoding', False)
     uploaded_image = st.file_uploader("Choose a png or jpg image", 
                                       type=["jpg", "png", "jpeg"])
 
@@ -97,26 +96,26 @@ def main():
         image = Image.open(uploaded_image)
         st.image(image, caption="Uploaded Image.", use_column_width=True)
         
-        n_boxes_to_draw = st.slider(label="Number of amenities to detect (boxes to draw)",
+        n_boxes_to_draw = st.slider(label="Number of objects to detect (boxes to draw)",
                                     min_value=1, 
                                     max_value=10, 
-                                    value=5)
+                                    value=1)
 
         image = image.convert("RGB")
       
     if st.button("Make a prediction"):
           # TODO: Add progress/spinning wheel here
-          "Making a prediction and drawing", n_boxes_to_draw, "amenity bedboxes on your image..."
-          with st.spinner("Doing the math..."):
+          "Making a prediction and drawing", n_boxes_to_draw, "object bedboxes on your image..."
+          with st.spinner("Analyzing the image..."):
             custom_pred, preds = make_inference(
                 image=image,
                 model_config=CONFIG_FILE,
                 model_weights=MODEL_FILE,
                 n=n_boxes_to_draw
             )
-            st.image(custom_pred, caption="Amenities detected.", use_column_width=True)
+            st.image(custom_pred, caption="Objects detected.", use_column_width=True)
           classes = np.array(preds.pred_classes)
-          st.write("Amenities detected:")
+          st.write("Objects detected:")
           st.write([subset[i] for i in classes])
 
 if __name__ == "__main__":
